@@ -1,12 +1,12 @@
-import React from 'react'
-import PostDetails from './PostDetails'
+import React from 'react';
+import PostDetails from './PostDetails';
 
 class PostList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       posts: [],
-    }
+    };
   }
 
   componentDidMount() {
@@ -16,14 +16,14 @@ class PostList extends React.Component {
         (res) => {
           this.setState({
             posts: res,
-          })
-        }
-      )
+          });
+        },
+      );
   }
 
   render() {
-    const { posts } = this.state
-    return(
+    const { posts } = this.state;
+    return (
       <ul>
         {posts.map(post => (
           <li key={post.id}>
@@ -31,8 +31,8 @@ class PostList extends React.Component {
           </li>
         ))}
       </ul>
-    )
+    );
   }
 }
 
-export default PostList
+export default PostList;
