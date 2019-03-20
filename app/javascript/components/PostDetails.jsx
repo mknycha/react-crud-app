@@ -1,17 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container, Header, Grid } from 'semantic-ui-react';
+import LinesEllipsis from 'react-lines-ellipsis';
 
 class PostDetails extends React.Component {
   render() {
-    const { title, description, created_at } = this.props.post;
+    const { id, title, description, created_at } = this.props.post;
     return (
       <div>
-        <strong>{title}</strong>
-        <div>{description}</div>
-        <div>
-Added:
-          {created_at}
-        </div>
+        <Container text>
+          <Header as='h2' dividing>{title}</Header>
+          <LinesEllipsis
+            text={description}
+            maxLine='3'
+            ellipsis='...'
+            trimRight
+            basedOn='letters'
+            component='p'
+          />
+          <div>
+            <Grid>
+              <Grid.Column floated='left' width={6}>
+                Read more
+              </Grid.Column>
+              <Grid.Column floated='right' width={6}>
+                Added: {dateParser(created_at)}
+              </Grid.Column>
+            </Grid>
+          </div>
+        </Container>
       </div>
     );
   }
@@ -20,13 +37,19 @@ Added:
 PostDetails.defaultProps = {
   title: '',
   description: '',
-  created_at: '',
+  created_at: new Date(),
 };
 
 PostDetails.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
-  created_at: PropTypes.string,
+  created_at: PropTypes.instanceOf(Date),
 };
+
+function dateParser(dateString) {
+  let dateInMs = Date.parse(dateString);
+  let parsedDate = new Date(dateInMs);
+  return parsedDate.toLocaleDateString("en-US");
+}
 
 export default PostDetails;
