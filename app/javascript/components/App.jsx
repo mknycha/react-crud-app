@@ -5,12 +5,12 @@ import { Header, Divider } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			posts: []
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    }
+  }
 
   componentDidMount() {
     fetch('/api/posts.json')
@@ -25,25 +25,29 @@ class App extends React.Component {
   }
 
   render() {
-  	return (
-  		<div>
-		  	<Header as='h1' color='green' textAlign='center' dividing>
-		  		Awesome blog
-		  	</Header>
-		  	<Divider hidden/>
-		  	<div>
-			  	<Router>
-			  		<Route exact={true}
-			  					 path='/posts'
-			  					 render={props => <PostList {...props} posts={this.state.posts} />}
-			  					 />
-			  		<Route path='/posts/:postId'
-			  					 render={props => <PostDetails {...props} posts={this.state.posts} />}
-			  					 />
-			    </Router>
-		    </div>
-		  </div>
-  	)
+    return (
+      <div>
+        <Header as='h1' color='green' textAlign='center' dividing>
+          Awesome blog
+        </Header>
+        <Divider hidden/>
+        <div>
+          <Router>
+            <Route exact={true}
+                   path='/posts'
+                   render={props => <PostList {...props} posts={this.state.posts} />}
+                   />
+            <Route path='/posts/:postId'
+                   render={({ match }) => {
+                     const postId = match.params.postId;
+                     const post = this.state.posts.find((el) => (el.id === parseInt(postId)));
+                     return (<PostDetails post={post} />);
+                   }}
+                   />
+          </Router>
+        </div>
+      </div>
+    )
   }
 }
 
