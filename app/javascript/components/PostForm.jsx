@@ -76,7 +76,6 @@ class PostForm extends React.Component {
 PostForm.propTypes = {
   post: PropTypes.shape(),
   onSubmit: PropTypes.func.isRequired,
-  history: PropTypes.shape(),
 };
 
 PostForm.defaultProps = {

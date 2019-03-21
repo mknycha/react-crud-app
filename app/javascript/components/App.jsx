@@ -3,7 +3,7 @@ import PostList from './PostList';
 import PostDetails from './PostDetails';
 import PostForm from './PostForm';
 import { Header, Divider } from 'semantic-ui-react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class App extends React.Component {
@@ -37,7 +37,7 @@ class App extends React.Component {
     }).then(res => res.json())
     .then((response) => {
       alert('Event Added!');
-      const savedPost = response.data;
+      const savedPost = response;
       this.setState(prevState => ({
         posts: [...prevState.posts, savedPost],
       }));
@@ -58,28 +58,30 @@ class App extends React.Component {
         </Header>
         <Divider hidden/>
         <div>
-          <Router>
-            <Route exact={true}
-                   path='/posts'
-                   render={props => <PostList {...props} posts={this.state.posts} />}
+          <Route exact={true}
+                 path='/posts'
+                 render={props => <PostList {...props} posts={this.state.posts} />}
+                 />
+          <Switch>
+            <Route path='/posts/new'
+                   render={props => <PostForm {...props} onSubmit={this.addPost} />}
                    />
-            <Switch>
-              <Route path='/posts/new'
-                     render={props => <PostForm {...props} onSubmit={this.addPost} />}
-                     />
-              <Route path={`/posts/:postId`}
-                     render={({ match }) => {
-                       const postId = match.params.postId;
-                       const post = this.state.posts.find((el) => (el.id === parseInt(postId)));
-                       return (<PostDetails post={post} />);
-                     }}
-                     />
-            </Switch>
-          </Router>
+            <Route path={`/posts/:postId`}
+                   render={({ match }) => {
+                     const postId = match.params.postId;
+                     const post = this.state.posts.find((el) => (el.id === parseInt(postId)));
+                     return (<PostDetails post={post} />);
+                   }}
+                   />
+          </Switch>
         </div>
       </div>
     )
   }
 }
+
+App.propTypes = {
+  history: PropTypes.shape(),
+};
 
 export default App;
