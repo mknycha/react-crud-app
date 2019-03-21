@@ -9,13 +9,27 @@ module Api
     end
 
     def show
-      respond_with Post.find(post_params[:id])
+      respond_with Post.find(params[:id])
+    end
+
+    def create
+      respond_with :api, Post.create(post_params)
+    end
+
+    def destroy
+      respond_with Post.destroy params[:id]
+    end
+
+    def update
+      event = Post.find(params[:id])
+      event.update(event_params)
+      respond_with Post, json: post
     end
 
     private
 
     def post_params
-      params.permit(:id, :title, :description)
+      params.permit(:id, :title, :content, :author)
     end
   end
 end

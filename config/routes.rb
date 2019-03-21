@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   get 'posts/:id/edit', to: 'site#index'
 
 	namespace :api do
-		resources :posts, only: [:index, :show]
+		resources :posts, only: [:index, :show, :create, :update, :destroy]
 	end
 end
