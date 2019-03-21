@@ -15,7 +15,7 @@ class PostDetails extends React.Component {
         {post ?
           (<Container text>
               <Header as='h2' dividing>{post.title}</Header>
-              <p>{post.description}</p>
+              <p>{post.content}</p>
               <div>
                 <Grid>
                   <Grid.Column floated='left' width={6}>

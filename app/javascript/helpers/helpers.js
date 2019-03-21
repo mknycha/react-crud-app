@@ -9,6 +9,10 @@ export const validatePost = (post) => {
     errors.content = 'You must add a content';
   }
 
+  if (post.author === '') {
+    errors.author = 'You must add an author';
+  }
+
   console.log(event);
   return errors;
 }

@@ -63,11 +63,9 @@ class PostForm extends React.Component {
         <h2>New post</h2>
         {this.renderErrors()}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Field>
-            <label>Title</label>
-            <input name='title' onChange={this.handleInputChange} />
-          </Form.Field>
+          <Form.Input label='Title' name='title' onChange={this.handleInputChange} />
           <Form.TextArea name='content' label='Content' onChange={this.handleInputChange} />
+          <Form.Input label='Author' name='author' onChange={this.handleInputChange} />
           <Button type='submit'>Submit</Button>
         </Form>
       </Container>
@@ -85,6 +83,7 @@ PostForm.defaultProps = {
   post: {
     title: '',
     content: '',
+    author: '',
   },
 };
 

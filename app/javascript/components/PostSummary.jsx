@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 
 class PostSummary extends React.Component {
   render() {
-    const { id, title, description, created_at } = this.props.post;
+    const { id, title, content, created_at } = this.props.post;
     return (
       <div>
         <Container text>
           <Header as='h2' dividing>{title}</Header>
           <LinesEllipsis
-            text={description}
+            text={content}
             maxLine='3'
             ellipsis='...'
             trimRight
@@ -39,13 +39,13 @@ class PostSummary extends React.Component {
 
 PostSummary.defaultProps = {
   title: '',
-  description: '',
+  content: '',
   created_at: new Date(),
 };
 
 PostSummary.propTypes = {
   title: PropTypes.string,
-  description: PropTypes.string,
+  content: PropTypes.string,
   created_at: PropTypes.instanceOf(Date),
 };
 
