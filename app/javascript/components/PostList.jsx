@@ -1,36 +1,23 @@
 import React from 'react';
-import PostDetails from './PostDetails';
+import PostSummary from './PostSummary';
+import { List, Divider } from 'semantic-ui-react';
 
 class PostList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      posts: [],
-    };
-  }
-
-  componentDidMount() {
-    fetch('/api/posts.json')
-      .then(res => res.json())
-      .then(
-        (res) => {
-          this.setState({
-            posts: res,
-          });
-        },
-      );
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts } = this.props;
     return (
-      <ul>
+      <List>
         {posts.map(post => (
-          <li key={post.id}>
-            <PostDetails post={post} />
-          </li>
+          <List.Item key={post.id}>
+            <PostSummary post={post} />
+            <Divider hidden />
+          </List.Item>
         ))}
-      </ul>
+      </List>
     );
   }
 }

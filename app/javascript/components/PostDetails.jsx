@@ -1,55 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Header, Grid } from 'semantic-ui-react';
-import LinesEllipsis from 'react-lines-ellipsis';
+import { Link } from 'react-router-dom';
 
 class PostDetails extends React.Component {
-  render() {
-    const { id, title, description, created_at } = this.props.post;
+	constructor(props) {
+    super(props);
+  }
+
+	render() {
+		const postId = this.props.match.params.postId;
+		const post = this.props.posts.find((el) => (el.id === parseInt(postId)));
     return (
       <div>
-        <Container text>
-          <Header as='h2' dividing>{title}</Header>
-          <LinesEllipsis
-            text={description}
-            maxLine='3'
-            ellipsis='...'
-            trimRight
-            basedOn='letters'
-            component='p'
-          />
-          <div>
-            <Grid>
-              <Grid.Column floated='left' width={6}>
-                Read more
-              </Grid.Column>
-              <Grid.Column floated='right' width={6}>
-                Added: {dateParser(created_at)}
-              </Grid.Column>
-            </Grid>
-          </div>
-        </Container>
+      	{post ?
+	        (<Container text>
+	          	<Header as='h2' dividing>{post.title}</Header>
+		          <p>{post.description}</p>
+		          <div>
+		            <Grid>
+		              <Grid.Column floated='left' width={6}>
+		                <Link to={`/posts`}>
+		                  Go back
+		                </Link>
+		              </Grid.Column>
+		            </Grid>
+		          </div>
+	        </Container>)
+	        : (<Container text>Loading...</Container>)
+      	}
       </div>
     );
   }
-}
-
-PostDetails.defaultProps = {
-  title: '',
-  description: '',
-  created_at: new Date(),
-};
-
-PostDetails.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  created_at: PropTypes.instanceOf(Date),
-};
-
-function dateParser(dateString) {
-  let dateInMs = Date.parse(dateString);
-  let parsedDate = new Date(dateInMs);
-  return parsedDate.toLocaleDateString("en-US");
 }
 
 export default PostDetails;
