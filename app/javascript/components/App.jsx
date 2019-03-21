@@ -4,6 +4,7 @@ import PostDetails from './PostDetails';
 import PostForm from './PostForm';
 import { Header, Divider } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,30 @@ class App extends React.Component {
       );
   }
 
+  addPost = (newPost) => {
+    fetch('/api/posts.json', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPost)
+    }).then(res => res.json())
+    .then((response) => {
+      alert('Event Added!');
+      const savedPost = response.data;
+      this.setState(prevState => ({
+        posts: [...prevState.posts, savedPost],
+      }));
+      const { history } = this.props;
+      history.push(`/posts/${savedPost.id}`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }
+
   render() {
     return (
       <div>
@@ -40,7 +65,7 @@ class App extends React.Component {
                    />
             <Switch>
               <Route path='/posts/new'
-                     component={PostForm}
+                     render={props => <PostForm {...props} onSubmit={this.addPost} />}
                      />
               <Route path={`/posts/:postId`}
                      render={({ match }) => {

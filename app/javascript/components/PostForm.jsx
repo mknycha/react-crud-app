@@ -6,7 +6,6 @@ import { isEmptyObject, validatePost } from '../helpers/helpers';
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       post: props.post,
       errors: {},
@@ -20,7 +19,8 @@ class PostForm extends React.Component {
     if (!isEmptyObject(errors)) {
       this.setState({ errors });
     } else {
-      console.log(post);
+      const { onSubmit } = this.props;
+      onSubmit(post);
     }
   }
 
@@ -77,6 +77,8 @@ class PostForm extends React.Component {
 
 PostForm.propTypes = {
   post: PropTypes.shape(),
+  onSubmit: PropTypes.func.isRequired,
+  history: PropTypes.shape(),
 };
 
 PostForm.defaultProps = {
