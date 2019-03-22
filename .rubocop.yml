@@ -1,2 +1,64 @@
+require: rubocop-rspec
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - '**/*_pb.rb'
+    - 'app/controllers/devise_custom/**/*'
+    - 'app/reports/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'spec/dummy/**/*'
+    - 'tmp/**/*'
+    - 'vendor/bundle/**/*'
+Metrics/AbcSize:
+  Enabled: true
+  Max: 16
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+    - 'app/docs/**/*' # API documentation definitions
+Metrics/ClassLength:
+  Enabled: true
+Metrics/CyclomaticComplexity:
+  Enabled: true
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+Metrics/MethodLength:
+  Enabled: true
+Naming/PredicateName:
+  Enabled: false
+Rails:
+  Enabled: true
+Rails/ActionFilter:
+  Enabled: false
+Rails/HttpPositionalArguments:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'db/migrate/**/*.rb'
+    - 'data/migrate/**/*.rb'
+RSpec/ExampleLength:
+  Max: 10
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/MessageSpies:
+  Enabled: false
+Style/SignalException:
+  Enabled: false
 Style/Documentation:
-	Enabled: false
+  Enabled: false
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': ()
+    '%I': ()
+    '%w': ()
+    '%W': ()
