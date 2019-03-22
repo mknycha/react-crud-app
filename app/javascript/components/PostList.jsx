@@ -11,7 +11,7 @@ class PostList extends React.Component {
   render() {
     const { posts } = this.props;
     return (
-      <Container>
+      <div>
         <List>
           {posts.map(post => (
             <List.Item key={post.id}>
@@ -20,8 +20,12 @@ class PostList extends React.Component {
             </List.Item>
           ))}
         </List>
-        <Link to='/posts/new'>Add new post</Link>
-      </Container>
+        <div>
+          <Container text={true}>
+            <Link to='/posts/new'>Add new post</Link>
+          </Container>
+        </div>
+      </div>
     );
   }
 }
