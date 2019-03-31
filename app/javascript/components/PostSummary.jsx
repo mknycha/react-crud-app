@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Header, Grid } from 'semantic-ui-react';
+import { Button, Container, Header, Grid } from 'semantic-ui-react';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { Link } from 'react-router-dom';
 
@@ -21,10 +21,15 @@ class PostSummary extends React.Component {
           />
           <div>
             <Grid>
-              <Grid.Column floated='left' width={6}>
+              <Grid.Column floated='left' width={3}>
                 <Link to={`/posts/${id}`}>
                   Read more
                 </Link>
+              </Grid.Column>
+              <Grid.Column floated='left' width={4}>
+                <Button onClick={() => this.props.onDelete(id)}>
+                  Delete
+                </Button>
               </Grid.Column>
               <Grid.Column floated='right' width={6}>
                 Added: {dateParser(created_at)}

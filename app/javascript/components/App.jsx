@@ -50,6 +50,29 @@ class App extends React.Component {
 
   }
 
+  deletePost = (postId) => {
+    const confirmed = window.confirm('Are you sure?');
+    if (confirmed) {
+      fetch(`/api/posts/${postId}.json`, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }).then(response => {
+        if (response.status === 204) {
+          alert('Event deleted!');
+          let { posts } = this.state;
+          this.setState({
+            posts: posts.filter(post => post.id !== postId),
+          });
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -60,7 +83,7 @@ class App extends React.Component {
         <div>
           <Route exact={true}
                  path='/posts'
-                 render={props => <PostList {...props} posts={this.state.posts} />}
+                 render={props => <PostList {...props} posts={this.state.posts} onDelete={this.deletePost} />}
                  />
           <Switch>
             <Route path='/posts/new'
