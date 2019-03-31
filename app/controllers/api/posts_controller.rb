@@ -10,6 +10,8 @@ module Api
 
     def show
       respond_with Post.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => ex
+      render json: { error: ex.message }, status: 404
     end
 
     def create
@@ -18,12 +20,16 @@ module Api
 
     def destroy
       respond_with Post.destroy params[:id]
+    rescue ActiveRecord::RecordNotFound => ex
+      render json: { error: ex.message }, status: 404
     end
 
     def update
-      event = Post.find(params[:id])
-      event.update(event_params)
+      post = Post.find(params[:id])
+      post.update(post_params)
       respond_with Post, json: post
+    rescue ActiveRecord::RecordNotFound => ex
+      render json: { error: ex.message }, status: 404
     end
 
     private
