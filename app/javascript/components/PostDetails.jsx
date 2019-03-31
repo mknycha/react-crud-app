@@ -6,26 +6,43 @@ import { Link } from 'react-router-dom';
 class PostDetails extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      post: null,
+    }
+  }
+
+  async componentDidMount() {
+    const { postId } = this.props;
+    const post = await this.findPost(postId);
+    this.setState({
+      post: post,
+    });
+  }
+
+  findPost = (postId) => {
+    return fetch(`/api/posts/${postId}.json`).then(res => res.json());
   }
 
   render() {
-    const { post } = this.props;
+    const { post } = this.state;
     return (
       <div>
         {post ?
-          (<Container text>
-              <Header as='h2' dividing>{post.title}</Header>
-              <p>{post.content}</p>
-              <div>
-                <Grid>
-                  <Grid.Column floated='left' width={6}>
-                    <Link to={`/posts`}>
-                      Go back
-                    </Link>
-                  </Grid.Column>
-                </Grid>
-              </div>
-          </Container>)
+          post.error ?
+            (<Container text>{post.error}</Container>) :
+            (<Container text>
+                <Header as='h2' dividing>{post.title}</Header>
+                <p>{post.content}</p>
+                <div>
+                  <Grid>
+                    <Grid.Column floated='left' width={6}>
+                      <Link to={`/posts`}>
+                        Go back
+                      </Link>
+                    </Grid.Column>
+                  </Grid>
+                </div>
+            </Container>)
           : (<Container text>Loading...</Container>)
         }
       </div>

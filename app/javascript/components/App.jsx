@@ -67,11 +67,7 @@ class App extends React.Component {
                    render={props => <PostForm {...props} onSubmit={this.addPost} />}
                    />
             <Route path={`/posts/:postId`}
-                   render={({ match }) => {
-                     const postId = match.params.postId;
-                     const post = this.state.posts.find((el) => (el.id === parseInt(postId)));
-                     return (<PostDetails post={post} />);
-                   }}
+                   render={(props) => <PostDetails {...props} postId={props.match.params.postId} />}
                    />
           </Switch>
         </div>
