@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container, Header, Grid } from 'semantic-ui-react';
-import LinesEllipsis from 'react-lines-ellipsis';
 import { Link } from 'react-router-dom';
+import './PostSummary.css';
 
 class PostSummary extends React.Component {
   render() {
@@ -11,15 +11,8 @@ class PostSummary extends React.Component {
       <div>
         <Container text>
           <Header as='h2' dividing>{title}</Header>
-          <LinesEllipsis
-            text={content}
-            maxLine='3'
-            ellipsis='...'
-            trimRight
-            basedOn='letters'
-            component='p'
-          />
           <div>
+            <p className='block-with-text'>{content}</p>
             <Grid>
               <Grid.Column floated='left' width={3}>
                 <Link to={`/posts/${id}`}>
