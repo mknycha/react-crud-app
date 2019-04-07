@@ -31,7 +31,7 @@ class PostDetails extends React.Component {
           post.error ? (
             <Container text>{post.error}</Container>
           ) : (
-            <Container text>
+            <Container text className="box-container">
               <Header as="h2" dividing>
                 {post.title}
               </Header>
@@ -40,6 +40,9 @@ class PostDetails extends React.Component {
                 <Grid>
                   <Grid.Column floated="left" width={6}>
                     <Link to={`/posts`}>Go back</Link>
+                  </Grid.Column>
+                  <Grid.Column floated="right" width={4}>
+                    Added by {post.author}
                   </Grid.Column>
                 </Grid>
               </div>

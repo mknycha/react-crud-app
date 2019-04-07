@@ -12,7 +12,7 @@
   /* fix problem when last visible word doesn't adjoin right side  */
   text-align: justify;
   /* place for '...' */
-  margin-right: -2em;
+  max-width: inherit;
   padding-right: 1em;
 }
 /* create the ... */

@@ -58,7 +58,7 @@ class PostForm extends React.Component {
   render() {
     const { post, header } = this.state;
     return (
-      <Container>
+      <Container text className="box-container">
         <h2>{header}</h2>
         {this.renderErrors()}
         <Form onSubmit={this.handleSubmit}>
@@ -80,7 +80,7 @@ class PostForm extends React.Component {
             onChange={this.handleInputChange}
             value={post.author}
           />
-          <Button type="submit">Submit</Button>
+          <Button color="green" type="submit">Submit</Button>
         </Form>
       </Container>
     );

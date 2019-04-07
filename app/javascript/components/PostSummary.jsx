@@ -9,30 +9,29 @@ class PostSummary extends React.Component {
     const { id, title, content, created_at } = this.props.post;
     return (
       <div>
-        <Container text>
+        <Container text className="box-container">
           <Header as="h2" dividing>
             {title}
           </Header>
+          <p className="block-with-text">{content}</p>
+          <Grid>
+            <Grid.Column floated="left" width={4}>
+              <Link to={`/posts/${id}`}>Read more</Link>
+            </Grid.Column>
+            <Grid.Column floated="right" width={4}>
+              Added: {dateParser(created_at)}
+            </Grid.Column>
+          </Grid>
           <div>
-            <p className="block-with-text">{content}</p>
-            <Grid>
-              <Grid.Column floated="left" width={3}>
-                <Link to={`/posts/${id}`}>Read more</Link>
-              </Grid.Column>
-              <Grid.Column floated="left" width={3}>
-                <Button
-                  onClick={() => this.props.history.push(`/posts/${id}/edit`)}
-                >
-                  Edit
-                </Button>
-              </Grid.Column>
-              <Grid.Column floated="left" width={3}>
-                <Button onClick={() => this.props.onDelete(id)}>Delete</Button>
-              </Grid.Column>
-              <Grid.Column floated="right" width={3}>
-                Added: {dateParser(created_at)}
-              </Grid.Column>
-            </Grid>
+            <Button
+              color="green"
+              onClick={() => this.props.history.push(`/posts/${id}/edit`)}
+            >
+              Edit
+            </Button>
+            <Button
+              color="red"
+              onClick={() => this.props.onDelete(id)}>Delete</Button>
           </div>
         </Container>
       </div>

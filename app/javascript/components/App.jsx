@@ -6,6 +6,7 @@ import PostEditForm from "./PostEditForm";
 import { Header, Divider } from "semantic-ui-react";
 import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
+import './App.css'
 
 class App extends React.Component {
   constructor(props) {
