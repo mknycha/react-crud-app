@@ -9,13 +9,13 @@ class PostList extends React.Component {
   }
 
   render() {
-    const { posts, onDelete } = this.props;
+    const { posts, onDelete, history } = this.props;
     return (
       <div>
         <List>
           {posts.map(post => (
             <List.Item key={post.id}>
-              <PostSummary post={post} onDelete={onDelete} />
+              <PostSummary post={post} onDelete={onDelete} history={history} />
               <Divider hidden />
             </List.Item>
           ))}

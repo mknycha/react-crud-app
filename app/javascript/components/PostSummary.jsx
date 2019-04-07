@@ -19,10 +19,17 @@ class PostSummary extends React.Component {
               <Grid.Column floated="left" width={3}>
                 <Link to={`/posts/${id}`}>Read more</Link>
               </Grid.Column>
-              <Grid.Column floated="left" width={4}>
+              <Grid.Column floated="left" width={3}>
+                <Button
+                  onClick={() => this.props.history.push(`/posts/${id}/edit`)}
+                >
+                  Edit
+                </Button>
+              </Grid.Column>
+              <Grid.Column floated="left" width={3}>
                 <Button onClick={() => this.props.onDelete(id)}>Delete</Button>
               </Grid.Column>
-              <Grid.Column floated="right" width={6}>
+              <Grid.Column floated="right" width={3}>
                 Added: {dateParser(created_at)}
               </Grid.Column>
             </Grid>

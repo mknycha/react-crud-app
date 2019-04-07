@@ -6,8 +6,10 @@ import { isEmptyObject, validatePost } from "../helpers/helpers";
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
+    const { header, post } = props;
     this.state = {
-      post: props.post,
+      header: header,
+      post: post,
       errors: {}
     };
   }
@@ -54,25 +56,29 @@ class PostForm extends React.Component {
   }
 
   render() {
+    const { post, header } = this.state
     return (
       <Container>
-        <h2>New post</h2>
+        <h2>{header}</h2>
         {this.renderErrors()}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label="Title"
             name="title"
             onChange={this.handleInputChange}
+            value={post.title}
           />
           <Form.TextArea
             name="content"
             label="Content"
             onChange={this.handleInputChange}
+            value={post.content}
           />
           <Form.Input
             label="Author"
             name="author"
             onChange={this.handleInputChange}
+            value={post.author}
           />
           <Button type="submit">Submit</Button>
         </Form>
@@ -91,7 +97,8 @@ PostForm.defaultProps = {
     title: "",
     content: "",
     author: ""
-  }
+  },
+  header: "New post"
 };
 
 export default PostForm;

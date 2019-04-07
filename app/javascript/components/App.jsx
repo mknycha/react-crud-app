@@ -48,6 +48,34 @@ class App extends React.Component {
       });
   };
 
+  updatePost = postToUpdate => {
+    fetch(`/api/posts/${postToUpdate.id}.json`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(postToUpdate)
+    })
+      .then(res => res.json())
+      .then(response => {
+        alert("Event Updated!");
+        const updatedPost = response;
+        const postIndex = this.state.posts.findIndex(
+          post => post.id === updatedPost.id
+        );
+        this.setState(prevState => {
+          prevState.posts[postIndex] = updatedPost;
+          return { posts: prevState.posts };
+        });
+        const { history } = this.props;
+        history.push(`/posts`);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   deletePost = postId => {
     const confirmed = window.confirm("Are you sure?");
     if (confirmed) {
@@ -99,7 +127,7 @@ class App extends React.Component {
           <Switch>
             <Route
               path="/posts/new"
-              render={props => <PostForm {...props} onSubmit={this.addPost} />}
+              render={props => <PostForm {...props} onSubmit={this.addPost} header="New post" />}
             />
             <Route
               exact={true}
@@ -111,6 +139,18 @@ class App extends React.Component {
                   findPost={this.findPost}
                 />
               )}
+            />
+            <Route
+              path={`/posts/:postId/edit`}
+              render={props => {
+                const { postId } = props.match.params;
+                const post = this.state.posts.find(
+                  post => post.id === Number(postId)
+                );
+                return (
+                  <PostForm {...props} onSubmit={this.updatePost} post={post} header="Edit post" />
+                );
+              }}
             />
           </Switch>
         </div>
