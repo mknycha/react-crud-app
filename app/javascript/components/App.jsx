@@ -6,7 +6,11 @@ import PostEditForm from "./PostEditForm";
 import { Header, Divider } from "semantic-ui-react";
 import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import './App.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import "./App.css";
+
+toast.configure()
 
 class App extends React.Component {
   constructor(props) {
@@ -34,7 +38,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(response => {
-        alert("Event Added!");
+        toast.success("Event Added!");
         const savedPost = response;
         this.setState(prevState => ({
           posts: [...prevState.posts, savedPost]
@@ -43,7 +47,7 @@ class App extends React.Component {
         history.push(`/posts/${savedPost.id}`);
       })
       .catch(error => {
-        console.log(error);
+        toast.error(error);
       });
   };
 
@@ -58,7 +62,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(response => {
-        alert("Event Updated!");
+        toast.success("Event Updated!");
         const updatedPost = response;
         const postIndex = this.state.posts.findIndex(
           post => post.id === updatedPost.id
@@ -71,7 +75,7 @@ class App extends React.Component {
         history.push(`/posts`);
       })
       .catch(error => {
-        console.log(error);
+        toast.error(error);
       });
   };
 
@@ -87,7 +91,7 @@ class App extends React.Component {
       })
         .then(response => {
           if (response.status === 204) {
-            alert("Event deleted!");
+            toast.success("Event deleted!");
             let { posts } = this.state;
             this.setState({
               posts: posts.filter(post => post.id !== postId)
@@ -95,7 +99,7 @@ class App extends React.Component {
           }
         })
         .catch(error => {
-          console.log(error);
+          toast.error(error);
         });
     }
   };
