@@ -80,7 +80,9 @@ class PostForm extends React.Component {
             onChange={this.handleInputChange}
             value={post.author}
           />
-          <Button color="green" type="submit">Submit</Button>
+          <Button color="green" type="submit">
+            Submit
+          </Button>
         </Form>
       </Container>
     );
