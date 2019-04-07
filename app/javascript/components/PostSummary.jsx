@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Container, Header, Grid } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import './PostSummary.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button, Container, Header, Grid } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import "./PostSummary.css";
 
 class PostSummary extends React.Component {
   render() {
@@ -10,21 +10,19 @@ class PostSummary extends React.Component {
     return (
       <div>
         <Container text>
-          <Header as='h2' dividing>{title}</Header>
+          <Header as="h2" dividing>
+            {title}
+          </Header>
           <div>
-            <p className='block-with-text'>{content}</p>
+            <p className="block-with-text">{content}</p>
             <Grid>
-              <Grid.Column floated='left' width={3}>
-                <Link to={`/posts/${id}`}>
-                  Read more
-                </Link>
+              <Grid.Column floated="left" width={3}>
+                <Link to={`/posts/${id}`}>Read more</Link>
               </Grid.Column>
-              <Grid.Column floated='left' width={4}>
-                <Button onClick={() => this.props.onDelete(id)}>
-                  Delete
-                </Button>
+              <Grid.Column floated="left" width={4}>
+                <Button onClick={() => this.props.onDelete(id)}>Delete</Button>
               </Grid.Column>
-              <Grid.Column floated='right' width={6}>
+              <Grid.Column floated="right" width={6}>
                 Added: {dateParser(created_at)}
               </Grid.Column>
             </Grid>
@@ -36,15 +34,15 @@ class PostSummary extends React.Component {
 }
 
 PostSummary.defaultProps = {
-  title: '',
-  content: '',
-  created_at: new Date(),
+  title: "",
+  content: "",
+  created_at: new Date()
 };
 
 PostSummary.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
-  created_at: PropTypes.instanceOf(Date),
+  created_at: PropTypes.instanceOf(Date)
 };
 
 function dateParser(dateString) {

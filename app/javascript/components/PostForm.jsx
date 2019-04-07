@@ -1,18 +1,18 @@
-import React from 'react';
-import { Form, Button, Container, Message } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { isEmptyObject, validatePost } from '../helpers/helpers';
+import React from "react";
+import { Form, Button, Container, Message } from "semantic-ui-react";
+import PropTypes from "prop-types";
+import { isEmptyObject, validatePost } from "../helpers/helpers";
 
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       post: props.post,
-      errors: {},
+      errors: {}
     };
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const { post } = this.state;
     const errors = validatePost(post);
@@ -22,9 +22,9 @@ class PostForm extends React.Component {
       const { onSubmit } = this.props;
       onSubmit(post);
     }
-  }
+  };
 
-  handleInputChange = (post) => {
+  handleInputChange = post => {
     const { target } = post;
     const { name } = target;
     const value = target.value;
@@ -32,10 +32,10 @@ class PostForm extends React.Component {
     this.setState(prevState => ({
       post: {
         ...prevState.post,
-        [name]: value,
-      },
+        [name]: value
+      }
     }));
-  }
+  };
 
   renderErrors() {
     const { errors } = this.state;
@@ -47,11 +47,7 @@ class PostForm extends React.Component {
     return (
       <div>
         {Object.values(errors).map(error => (
-          <Message
-            key={error}
-            error
-            content={error}
-          />
+          <Message key={error} error content={error} />
         ))}
       </div>
     );
@@ -63,10 +59,22 @@ class PostForm extends React.Component {
         <h2>New post</h2>
         {this.renderErrors()}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Input label='Title' name='title' onChange={this.handleInputChange} />
-          <Form.TextArea name='content' label='Content' onChange={this.handleInputChange} />
-          <Form.Input label='Author' name='author' onChange={this.handleInputChange} />
-          <Button type='submit'>Submit</Button>
+          <Form.Input
+            label="Title"
+            name="title"
+            onChange={this.handleInputChange}
+          />
+          <Form.TextArea
+            name="content"
+            label="Content"
+            onChange={this.handleInputChange}
+          />
+          <Form.Input
+            label="Author"
+            name="author"
+            onChange={this.handleInputChange}
+          />
+          <Button type="submit">Submit</Button>
         </Form>
       </Container>
     );
@@ -75,15 +83,15 @@ class PostForm extends React.Component {
 
 PostForm.propTypes = {
   post: PropTypes.shape(),
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 PostForm.defaultProps = {
   post: {
-    title: '',
-    content: '',
-    author: '',
-  },
+    title: "",
+    content: "",
+    author: ""
+  }
 };
 
 export default PostForm;

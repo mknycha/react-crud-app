@@ -1,7 +1,7 @@
-import React from 'react';
-import PostSummary from './PostSummary';
-import { List, Divider, Container } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PostSummary from "./PostSummary";
+import { List, Divider, Container } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class PostList extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class PostList extends React.Component {
         </List>
         <div>
           <Container text={true}>
-            <Link to='/posts/new'>Add new post</Link>
+            <Link to="/posts/new">Add new post</Link>
           </Container>
         </div>
       </div>
