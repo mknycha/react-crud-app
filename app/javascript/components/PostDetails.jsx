@@ -12,15 +12,15 @@ class PostDetails extends React.Component {
   }
 
   async componentDidMount() {
-    const { postId } = this.props;
-    const post = await this.findPost(postId);
-    this.setState({
-      post: post,
-    });
-  }
-
-  findPost = (postId) => {
-    return fetch(`/api/posts/${postId}.json`).then(res => res.json());
+    try {
+      const { postId, findPost } = this.props;
+      const post = await findPost(postId);
+      this.setState({
+        post: post,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {

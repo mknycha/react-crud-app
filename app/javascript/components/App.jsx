@@ -73,6 +73,11 @@ class App extends React.Component {
     }
   }
 
+
+  findPost = (postId) => {
+    return fetch(`/api/posts/${postId}.json`).then(res => res.json());
+  }
+
   render() {
     return (
       <div>
@@ -90,7 +95,7 @@ class App extends React.Component {
                    render={props => <PostForm {...props} onSubmit={this.addPost} />}
                    />
             <Route path={`/posts/:postId`}
-                   render={(props) => <PostDetails {...props} postId={props.match.params.postId} />}
+                   render={(props) => <PostDetails {...props} postId={props.match.params.postId} findPost={this.findPost} />}
                    />
           </Switch>
         </div>
