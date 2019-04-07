@@ -2,6 +2,7 @@ import React from "react";
 import PostList from "./PostList";
 import PostDetails from "./PostDetails";
 import PostForm from "./PostForm";
+import PostEditForm from "./PostEditForm";
 import { Header, Divider } from "semantic-ui-react";
 import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -14,14 +15,11 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch("/api/posts.json")
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          posts: res
-        });
-      });
+  async componentDidMount() {
+    let res = await fetch("/api/posts.json").then(res => res.json());
+    this.setState({
+      posts: res
+    });
   }
 
   addPost = newPost => {
@@ -127,7 +125,13 @@ class App extends React.Component {
           <Switch>
             <Route
               path="/posts/new"
-              render={props => <PostForm {...props} onSubmit={this.addPost} header="New post" />}
+              render={props => (
+                <PostForm
+                  {...props}
+                  onSubmit={this.addPost}
+                  header="New post"
+                />
+              )}
             />
             <Route
               exact={true}
@@ -143,12 +147,13 @@ class App extends React.Component {
             <Route
               path={`/posts/:postId/edit`}
               render={props => {
-                const { postId } = props.match.params;
-                const post = this.state.posts.find(
-                  post => post.id === Number(postId)
-                );
                 return (
-                  <PostForm {...props} onSubmit={this.updatePost} post={post} header="Edit post" />
+                  <PostEditForm
+                    {...props}
+                    onSubmit={this.updatePost}
+                    postId={Number(props.match.params.postId)}
+                    findPost={this.findPost}
+                  />
                 );
               }}
             />

@@ -56,7 +56,7 @@ class PostForm extends React.Component {
   }
 
   render() {
-    const { post, header } = this.state
+    const { post, header } = this.state;
     return (
       <Container>
         <h2>{header}</h2>
